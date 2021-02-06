@@ -1,0 +1,53 @@
+﻿@model List<Formularios.Models.Resposta>
+
+<h1>@ViewBag.Formulario.Titulo</h1>
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            @if (Model.Any())
+            {
+                @for (int i = 0; i < Model.Count; i++)
+                {
+                    <div class="form-group">
+                        <input asp-for="@Model[i].PerguntaId" type="hidden" />
+                        <label class="control-label">@Model[i].Pergunta.Titulo</label>
+                        <input asp-for="@Model[i].Texto" class="form-control" />
+                        <span asp-validation-for="@Model[i].Texto" class="text-danger"></span>
+                    </div>
+                }
+
+                <div class="form-group">
+                    <label asp-for="@Model[0].Latitude" class="control-label"></label>
+                    <input asp-for="@Model[0].Latitude" class="form-control" />
+                    <span asp-validation-for="@Model[0].Latitude" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="@Model[0].Longitude" class="control-label"></label>
+                    <input asp-for="@Model[0].Longitude" class="form-control" />
+                    <span asp-validation-for="@Model[0].Longitude" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Criar" class="btn btn-primary" />
+                </div>
+            }
+            else
+            {
+                <div>
+                    <p><b>Nenhuma pergunta cadastrada.</b></p>
+                </div>
+            }
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Voltar para listagem</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

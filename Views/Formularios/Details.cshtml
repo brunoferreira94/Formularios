@@ -1,0 +1,53 @@
+﻿@model Formularios.Models.Formulario
+
+@{
+    ViewData["Title"] = "Detalhes";
+}
+
+<h1>@Model.Titulo</h1>
+
+<div>
+    <hr />
+    <dl class="row">
+        @for (int i = 0; i < Model.Perguntas.Count; i++)
+        {
+            <dt class="col-sm-2">
+                @Html.DisplayName("Pergunta " + (i + 1) + ":")
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Perguntas[i].Titulo)
+            </dd>
+            <dt class="col-sm-12">
+                @Html.DisplayName("Respostas:")
+            </dt>
+            @if (Model.Perguntas[i].Respostas.Any())
+            {
+                    @for (int e = 0; e < Model.Perguntas[i].Respostas.Count; e++)
+                    {
+                        <dt class="col-sm-2">
+                            @Html.DisplayName(string.Empty)
+                        </dt>
+                        <dd class="col-sm-10">
+                            @Html.DisplayFor(model => model.Perguntas[i].Respostas[e].Texto)
+                        </dd>
+                    }
+            }
+            else
+            {
+                <dt class="col-sm-2">
+                    @Html.DisplayName(string.Empty)
+                </dt>
+                <dd class="col-sm-10">
+                    Nenhuma resposta cadastrada.
+                </dd>
+            }
+
+
+
+        }
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.Id">Editar</a> |
+    <a asp-action="Index">Voltar para listagem</a>
+</div>
